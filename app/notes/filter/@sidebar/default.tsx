@@ -4,13 +4,13 @@ import css from "./SidebarNotes.module.css";
 export default function DefaultSidebar() {
   return (
     <nav className={css.sidebar}>
-      <ul>
-        <li><Link href="/notes/filter/All">All notes</Link></li>
-        <li><Link href="/notes/filter/Todo">Todo</Link></li>
-        <li><Link href="/notes/filter/Work">Work</Link></li>
-        <li><Link href="/notes/filter/Personal">Personal</Link></li>
-        <li><Link href="/notes/filter/Meeting">Meeting</Link></li>
-        <li><Link href="/notes/filter/Shopping">Shopping</Link></li>
+      <ul className={css.menuList}>
+        <li className={css.menuItem}><Link href="/notes/filter/All" className={css.menuLink}>All notes</Link></li>
+        <li className={css.menuItem}><Link href="/notes/filter/Todo" className={css.menuLink}>Todo</Link></li>
+        <li className={css.menuItem}><Link href="/notes/filter/Work" className={css.menuLink}>Work</Link></li>
+        <li className={css.menuItem}><Link href="/notes/filter/Personal" className={css.menuLink}>Personal</Link></li>
+        <li className={css.menuItem}><Link href="/notes/filter/Meeting" className={css.menuLink}>Meeting</Link></li>
+        <li className={css.menuItem}><Link href="/notes/filter/Shopping" className={css.menuLink}>Shopping</Link></li>
       </ul>
     </nav>
   );
