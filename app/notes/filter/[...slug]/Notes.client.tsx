@@ -12,7 +12,7 @@ export default function NotesClient({ tag }: { tag: string }) {
 
   if (isLoading) return <p>Loading...</p>;
 
-  if (!data) return <p>No notes found</p>;
+  if (!data) return <p>No notes found</p>;    
 
   return (
     <ul>
