@@ -1,36 +1,26 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "@/lib/api";
-import { Note } from "@/types/note";
-import css from "../../NotesPage.module.css";
+import { Note } from "@/types/note";      
 
-export default function FilteredNotesPage({ params }: { params: { slug: string[] } }) {
-  const currentTag = params.slug?.[0];
-
+export default function NotesClient({ tag }: { tag: string }) {
   const { data, isLoading } = useQuery({
-    queryKey: ["notes", currentTag],
+    queryKey: ["notes", tag],
     queryFn: () =>
-      currentTag === "all"
-        ? fetchNotes(1, 10)
-        : fetchNotes(1, 10, undefined, currentTag),
+      tag === "all" ? fetchNotes(1, 10) : fetchNotes(1, 10, undefined, tag),
   });
 
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className={css.wrapper}>
-      <h1 className={css.title}>
-        {currentTag === "all" ? "All notes" : `Notes tagged: ${currentTag}`}
-      </h1>
-      <ul className={css.list}>
-        {data?.notes.map((note: Note) => (
-          <li key={note.id} className={css.item}>
-            <h2>{note.title}</h2>
-            <p>{note.content}</p>
-            <span>{note.tag}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      {data?.notes.map((note: Note) => (
+        <li key={note.id}>
+          <h2>{note.title}</h2>
+          <p>{note.content}</p>
+          <span>{note.tag}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
