@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchNotes } from "@/lib/api";
 import { Note } from "@/types/note";
-import css from "./NotesPage.module.css";
+import css from "../../NotesPage.module.css";
 
 export default function FilteredNotesPage({ params }: { params: { tag: string[] } }) {
   const currentTag = params.tag?.[0];
