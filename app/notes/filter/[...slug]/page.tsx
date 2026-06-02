@@ -4,8 +4,8 @@ import { fetchNotes } from "@/lib/api";
 import { Note } from "@/types/note";
 import css from "../../NotesPage.module.css";
 
-export default function FilteredNotesPage({ params }: { params: { tag: string[] } }) {
-  const currentTag = params.tag?.[0];
+export default function FilteredNotesPage({ params }: { params: { slug: string[] } }) {
+  const currentTag = params.slug?.[0];
 
   const { data, isLoading } = useQuery({
     queryKey: ["notes", currentTag],
