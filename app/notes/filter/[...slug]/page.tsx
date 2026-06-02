@@ -1,26 +1,29 @@
-"use client";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { HydrationBoundary } from "@tanstack/react-query";
 import { fetchNotes } from "@/lib/api";
-import { Note } from "@/types/note";      
+import NotesClient from "./Notes.client";
 
-export default function NotesClient({ tag }: { tag: string }) {
-  const { data, isLoading } = useQuery({
-    queryKey: ["notes", tag],
+export default async function FilteredNotesPage({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>;
+}) {
+  const { slug } = await params;
+  const currentTag = slug?.[0] ?? "all";
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["notes", currentTag],
     queryFn: () =>
-      tag === "all" ? fetchNotes(1, 10) : fetchNotes(1, 10, undefined, tag),
+      currentTag === "all"
+        ? fetchNotes(1, 10)
+        : fetchNotes(1, 10, undefined, currentTag),
   });
-
-  if (isLoading) return <p>Loading...</p>;
-
+            
   return (
-    <ul>
-      {data?.notes.map((note: Note) => (
-        <li key={note.id}>
-          <h2>{note.title}</h2>
-          <p>{note.content}</p>
-          <span>{note.tag}</span>
-        </li>
-      ))}
-    </ul>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <NotesClient tag={currentTag} />
+    </HydrationBoundary>
   );
 }
