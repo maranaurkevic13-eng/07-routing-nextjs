@@ -17,11 +17,14 @@ export interface FetchNotesResponse {
 export async function fetchNotes(
   page: number,
   perPage: number = 10, 
-  search?: string
+  search?: string,
+  tag?: string
 ): Promise<FetchNotesResponse> {
   const res = await axios.get<FetchNotesResponse>(API_URL, {
     headers,
-    params: { page, perPage, search },
+    params: tag
+      ? { page, perPage, search, tag }
+      : { page, perPage, search },
   });
   return res.data;
 }
