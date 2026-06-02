@@ -5,7 +5,7 @@ export default function DefaultSidebar() {
   return (
     <nav className={css.sidebar}>
       <ul className={css.menuList}>
-        <li className={css.menuItem}><Link href="/notes/filter/All" className={css.menuLink}>All notes</Link></li>
+        <li className={css.menuItem}><Link href="/notes/filter/all" className={css.menuLink}>All notes</Link></li>
         <li className={css.menuItem}><Link href="/notes/filter/Todo" className={css.menuLink}>Todo</Link></li>
         <li className={css.menuItem}><Link href="/notes/filter/Work" className={css.menuLink}>Work</Link></li>
         <li className={css.menuItem}><Link href="/notes/filter/Personal" className={css.menuLink}>Personal</Link></li>
